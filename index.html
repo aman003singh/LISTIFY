@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listify</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <h1
+      style="
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        text-align: center;
+        color: rgb(17, 0, 0);
+        font-weight: bolder;
+        margin: 2vh;
+      "
+    >
+      LISTIFY
+    </h1>
+
+    <section class="bigbox">
+      <div class="block1">
+        <input
+          type="button"
+          id="addButton"
+          value="+ Add"
+          onclick="addTask()"
+          class="button"
+        />
+
+        <input type="text" id="input" placeholder="Enter Task" />
+      </div>
+      <br />
+      <hr />
+      <ul id="tasks">
+        <li>
+          <input
+            type="button"
+            class="done"
+            onclick="markDone(this.parentNode)"
+            value="&#x2713;"
+          />
+
+          <input
+            type="button"
+            class="remove"
+            onclick="remove(this.parentNode)"
+            value="&#x2715;"
+          />
+
+          <input
+            type="button"
+            onclick="important(this.parentNode)"
+            value="!"
+            class="important"
+          />
+
+          Start Making Your List
+        </li>
+      </ul>
+      <hr />
+      <br />
+
+      <div id="divabout"></div>
+      <input type="button" value="About" onclick="doAbout()" class="button" />
+      <input
+        type="button"
+        value="Clear"
+        onclick="clearAbout()"
+        class="button"
+      />
+    </section>
+  </body>
+</html>
