@@ -1,43 +1,92 @@
 
+    // Initialize tasks from localStorage or an empty array
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    function saveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
     function addTask() {
-      var input = document.getElementById("input");
-      // get current text from input field
-      var newTask = input.value;
-      // only add new item to list if some text was entered
-      if (newTask != "") {
-        // create new HTML list item
-        var item = document.createElement("li");
-        // add HTML for buttons and new task text
-        // Note, need to use '' because of "" in HTML
-        item.innerHTML =
-          '<input type="button" class="done" onclick="markDone(this.parentNode)"  value="&#x2713;" /> ' +
-          '<input type="button" class="remove" onclick="remove(this.parentNode)" value="&#x2715;" /> ' +
-          newTask;
+        var input = document.getElementById("input");
+        // get current text from input field
+        var newTask = input.value;
+        // only add new item to list if some text was entered
+        if (newTask != "") {
+            // create new HTML list item
+            var item = document.createElement("li");
+            // add HTML for buttons and new task text
+            // Note, need to use '' because of "" in HTML
+            item.innerHTML =
+                '<input type="button" class="done" onclick="markDone(this.parentNode)"  value="&#x2713;" /> ' +
+                '<input type="button" class="remove" onclick="remove(this.parentNode)" value="&#x2715;" /> ' +
+                newTask;
 
-        // add new item as part of existing list
-        document.getElementById("tasks").appendChild(item);
+            // add new item as part of the existing list
+            document.getElementById("tasks").appendChild(item);
 
-        input.value = "";
-        input.placeholder = "Enter Next task";
-      }
+            input.value = "";
+            input.placeholder = "Enter Next task";
+
+            // Add the new task to the tasks array
+            tasks.push(newTask);
+            // Save the updated tasks array to localStorage
+            saveTasks();
+        }
     }
 
-    // change styling used for given item
+    // change styling used for a given item
     function markDone(item) {
-      item.className = "finished";
+        item.className = "finished";
+        saveTasks();
     }
 
-    /* Step 7 below here */
+    // remove item completely from the document
     function remove(item) {
-      // remove item completely from document
-      if (item.className == "finished") {
-        item.remove();
-      } else {
-        alert("Click Check Before Deleting");
-      }
+        if (item.className == "finished") {
+            item.remove();
+            // Remove the task from the tasks array and save
+            const taskText = item.innerText.trim();
+            const taskIndex = tasks.indexOf(taskText);
+            if (taskIndex !== -1) {
+                tasks.splice(taskIndex, 1);
+                saveTasks();
+            }
+        } else {
+            alert("Click Check Before Deleting");
+        }
     }
 
-    /* Step 11 below here */
+    // Clean all tasks
+    function clean() {
+        // Remove all tasks from the tasks array and save
+        tasks.length = 0;
+        saveTasks();
+        // Clear the task list
+        const taskList = document.getElementById("tasks");
+        taskList.innerHTML = "";
+    }
+
+    // Load and display tasks when the page loads
+    window.onload = function () {
+        displayTasks();
+    };
+
+    // Display tasks function
+    function displayTasks() {
+        const taskList = document.getElementById('tasks');
+        taskList.innerHTML = '';
+
+        tasks.forEach((task) => {
+            const item = document.createElement('li');
+            item.innerHTML =
+                '<input type="button" class="done" onclick="markDone(this.parentNode)"  value="&#x2713;" /> ' +
+                '<input type="button" class="remove" onclick="remove(this.parentNode)" value="&#x2715;" /> ' +
+                task;
+            taskList.appendChild(item);
+        });
+    }
+
+
     function doAbout() {
       var about = document.getElementById("divabout");
       about.innerHTML =
@@ -46,13 +95,7 @@
       about.className = "aboutcolor";
     }
 
-    /* Step 14 below here */
     function clearAbout() {
       var clear = document.getElementById("divabout");
       clear.innerHTML = "";
     }
-
-    function important(item) {
-      item.className = "important";
-    }
-  
