@@ -8,6 +8,7 @@
     <script src="script.js"></script>
   </head>
 
+
   <body>
     <h1
       style="
@@ -20,6 +21,18 @@
     >
       LISTIFY
     </h1>
+
+<div class="buttons2">
+  <div id="divabout"></div>
+      <input type="button" value="About" onclick="doAbout()" class="secbutton" />
+      <input
+        type="button"
+        value="Hide"
+        onclick="clearAbout()"
+        class="secbutton"
+      />
+</div>
+    
 
     <section class="bigbox">
       <div class="block1">
@@ -62,16 +75,11 @@
         </li>
       </ul>
       <hr />
-      <br />
+      <input type="button" class="button" onclick="clean()" value="Clear">
+<br><br>
+      
 
-      <div id="divabout"></div>
-      <input type="button" value="About" onclick="doAbout()" class="button" />
-      <input
-        type="button"
-        value="Clear"
-        onclick="clearAbout()"
-        class="button"
-      />
+      
     </section>
   </body>
 </html>
